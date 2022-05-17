@@ -11,7 +11,7 @@ import webpbridge
 public struct WebPAnimatedEncoderError: Error, Equatable { }
 public struct WebPAnimatedEncoderStateError: Error, Equatable { }
 
-class WebPAnimatedEncoder {
+public class WebPAnimatedEncoder {
     
     private var encoder: OpaquePointer? = nil
     
@@ -24,7 +24,7 @@ class WebPAnimatedEncoder {
     private var originWidth: Int32 = 0
     private var originHeight: Int32 = 0
     
-    func create(config: WebpEncoderConfig, width: Int, height: Int) throws {
+    public func create(config: WebpEncoderConfig, width: Int, height: Int) throws {
         finalize()
         self.config = config
         self.originWidth = Int32(width)
@@ -35,7 +35,7 @@ class WebPAnimatedEncoder {
         }
     }
     
-    func addImage(image: WebPPlatformImage, duration: Int) throws {
+    public func addImage(image: WebPPlatformImage, duration: Int) throws {
         guard let encoder = encoder else {
             throw WebPAnimatedEncoderStateError()
         }
@@ -73,7 +73,7 @@ class WebPAnimatedEncoder {
         timestamp = timestamp + Int32(duration)
     }
     
-    func encode(loopCount: Int = 0) throws -> Data {
+    public func encode(loopCount: Int = 0) throws -> Data {
         guard let encoder = encoder else {
             throw WebPAnimatedEncoderStateError()
         }
