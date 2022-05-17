@@ -24,6 +24,10 @@ public class WebPAnimatedEncoder {
     private var originWidth: Int32 = 0
     private var originHeight: Int32 = 0
     
+    public init() {
+        
+    }
+    
     public func create(config: WebpEncoderConfig, width: Int, height: Int) throws {
         finalize()
         self.config = config
