@@ -24,6 +24,7 @@
 }
 
 -(id)init {
+    iDecoder = nullptr;
     outputBuffer = &config.output;
     bitstream = &config.input;
     if (!WebPInitDecoderConfig(&config)) {
