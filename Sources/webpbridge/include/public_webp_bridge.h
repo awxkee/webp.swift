@@ -10,4 +10,4 @@
 #include "types.h"
 #include "demux.h"
 #include "mux.h"
-#include "WebpSpecialDecoder.hxx"
+#include "WebpIncrementalDecoder.hxx"
