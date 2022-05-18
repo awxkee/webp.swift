@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WebpSpecialDecoder.hxx"
+#import "WebpIncrementalDecoder.hxx"
 
-@implementation WebpSpecialDecoderResult
+@implementation WebpIncrementalDecoderResult
 
 @end

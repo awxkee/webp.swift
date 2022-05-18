@@ -17,11 +17,11 @@
 #define WebPImage   UIImage
 #endif
 
-@interface WebpSpecialDecoderResult : NSObject
+@interface WebpIncrementalDecoderResult : NSObject
 @property (nonatomic) WebPImage* _Nullable image;
 @end
 
-@interface WebpSpecialDecoder : NSObject;
+@interface WebpIncrementalDecoder : NSObject;
 -(nonnull id)init;
--(nullable WebpSpecialDecoderResult*)incremetallyDecodeData:(nonnull NSData*)chunk error:(NSError *_Nullable*_Nullable)error;
+-(nullable WebpIncrementalDecoderResult*)incremetallyDecodeData:(nonnull NSData*)chunk error:(NSError *_Nullable*_Nullable)error;
 @end

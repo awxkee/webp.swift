@@ -5,10 +5,10 @@
 //  Created by Radzivon Bartoshyk on 18/05/2022.
 //
 
-#import "WebpSpecialDecoder.hxx"
+#import "WebpIncrementalDecoder.hxx"
 #import "decode.h"
 
-@implementation WebpSpecialDecoder {
+@implementation WebpIncrementalDecoder {
     WebPDecoderConfig config;
     WebPDecBuffer* outputBuffer;
     WebPBitstreamFeatures* bitstream;
@@ -28,7 +28,7 @@
     return self;
 }
 
--(nullable WebpSpecialDecoderResult*)incremetallyDecodeData:(nonnull NSData*)chunk error:(NSError *_Nullable*_Nullable)error {
+-(nullable WebpIncrementalDecoderResult*)incremetallyDecodeData:(nonnull NSData*)chunk error:(NSError *_Nullable*_Nullable)error {
     auto iDecoder = WebPIDecode((uint8_t*)chunk.bytes, chunk.length, &config);
     if (!iDecoder) {
         *error = [[NSError alloc] initWithDomain:@"WebpSpecialDecoder" code:500 userInfo:@{ NSLocalizedDescriptionKey: @"Can't create Decoder for requested `Config`"}];
@@ -47,7 +47,7 @@
     void* rgbaBuffer = WebPIDecGetRGB(iDecoder, &lastY, &width, &height, &stride);
     if (rgbaBuffer == nullptr || lastY == 0 || width == 0 || height == 0 || stride == 0) {
         WebPIDelete(iDecoder);
-        return [[WebpSpecialDecoderResult alloc] init];
+        return [[WebpIncrementalDecoderResult alloc] init];
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -69,7 +69,7 @@
     CGImageRelease(imageRef);
     CGColorSpaceRelease(colorSpace);
     
-    auto result = [[WebpSpecialDecoderResult alloc] init];
+    auto result = [[WebpIncrementalDecoderResult alloc] init];
     result.image = image;
     
     WebPIDelete(iDecoder);
