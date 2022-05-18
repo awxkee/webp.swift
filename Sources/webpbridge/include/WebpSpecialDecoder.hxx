@@ -22,6 +22,6 @@
 @end
 
 @interface WebpSpecialDecoder : NSObject;
--(nullable id)init:(NSError * _Nullable* _Nullable)error;
+-(nonnull id)init;
 -(nullable WebpSpecialDecoderResult*)incremetallyDecodeData:(nonnull NSData*)chunk error:(NSError *_Nullable*_Nullable)error;
 @end

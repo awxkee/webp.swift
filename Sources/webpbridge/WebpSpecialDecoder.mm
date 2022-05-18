@@ -18,12 +18,11 @@
     WebPFreeDecBuffer(outputBuffer);
 }
 
--(nullable id)init:(NSError *_Nullable*_Nullable)error {
+-(id)init {
     outputBuffer = &config.output;
     bitstream = &config.input;
     if (!WebPInitDecoderConfig(&config)) {
-        *error = [[NSError alloc] initWithDomain:@"WebpSpecialDecoder" code:500 userInfo:@{ NSLocalizedDescriptionKey: @"Invalid WebP library version"}];
-        return nil;
+        NSLog(@"Invalid WebPVersion");
     }
     outputBuffer->colorspace = MODE_RGBA;
     return self;
