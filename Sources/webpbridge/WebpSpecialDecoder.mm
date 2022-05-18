@@ -12,12 +12,10 @@
     WebPDecoderConfig config;
     WebPDecBuffer* outputBuffer;
     WebPBitstreamFeatures* bitstream;
-    WebPIDecoder* iDecoder;
 }
 
 -(void)dealloc {
     WebPFreeDecBuffer(outputBuffer);
-    WebPIDelete(iDecoder);
 }
 
 -(nullable id)init:(NSError *_Nullable*_Nullable)error {
@@ -28,17 +26,18 @@
         return nil;
     }
     outputBuffer->colorspace = MODE_RGBA;
-    iDecoder = WebPINewDecoder(outputBuffer);
-    if (!iDecoder) {
-        *error = [[NSError alloc] initWithDomain:@"WebpSpecialDecoder" code:500 userInfo:@{ NSLocalizedDescriptionKey: @"Can't create Decoder for requested `Config`"}];
-        return nil;
-    }
     return self;
 }
 
 -(nullable WebpSpecialDecoderResult*)incremetallyDecodeData:(nonnull NSData*)chunk error:(NSError *_Nullable*_Nullable)error {
+    auto iDecoder = WebPIDecode((uint8_t*)chunk.bytes, chunk.length, &config);
+    if (!iDecoder) {
+        *error = [[NSError alloc] initWithDomain:@"WebpSpecialDecoder" code:500 userInfo:@{ NSLocalizedDescriptionKey: @"Can't create Decoder for requested `Config`"}];
+        return nil;
+    }
     VP8StatusCode status = WebPIUpdate(iDecoder, (uint8_t*)chunk.bytes, chunk.length);
     if (status != VP8_STATUS_OK && status != VP8_STATUS_SUSPENDED) {
+        WebPIDelete(iDecoder);
         *error = [[NSError alloc] initWithDomain:@"WebpSpecialDecoder" code:500 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"An error has occured with code: %d", status]}];
         return nil;
     }
@@ -48,6 +47,7 @@
     int stride = 0;
     void* rgbaBuffer = WebPIDecGetRGB(iDecoder, &lastY, &width, &height, &stride);
     if (rgbaBuffer == nullptr || lastY == 0 || width == 0 || height == 0 || stride == 0) {
+        WebPIDelete(iDecoder);
         return [[WebpSpecialDecoderResult alloc] init];
     }
     
@@ -55,6 +55,7 @@
     int flags = kCGBitmapByteOrder32Big | kCGImageAlphaPremultipliedLast;
     CGContextRef gtx = CGBitmapContextCreate(rgbaBuffer, width, height, 8, stride, colorSpace, flags);
     if (gtx == NULL) {
+        WebPIDelete(iDecoder);
         *error = [[NSError alloc] initWithDomain:@"WebpSpecialDecoder" code:500 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"An error has occured while decoding"]}];
         return nil;
     }
@@ -71,6 +72,8 @@
     
     auto result = [[WebpSpecialDecoderResult alloc] init];
     result.image = image;
+    
+    WebPIDelete(iDecoder);
     
     return result;
 }
