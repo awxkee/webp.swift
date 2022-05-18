@@ -60,7 +60,7 @@
     }
     CGImageRef imageRef = CGBitmapContextCreateImage(gtx);
     WebPImage *image = nil;
-#if TARGET_OS_MAC
+#if TARGET_OS_OSX
     image = [[NSImage alloc] initWithCGImage:imageRef size:CGSizeZero];
 #else
     image = [UIImage imageWithCGImage:imageRef scale:1 orientation: UIImageOrientationUp];

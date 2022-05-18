@@ -9,7 +9,7 @@
 
 #import "TargetConditionals.h"
 
-#if TARGET_OS_MAC
+#if TARGET_OS_OSX
 #import <AppKit/AppKit.h>
 #define WebPImage   NSImage
 #else
