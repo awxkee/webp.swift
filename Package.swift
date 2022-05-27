@@ -32,6 +32,7 @@ let package = Package(
                 publicHeadersPath: "include",
                 cSettings: [
                     .headerSearchPath("."),
-                ])
+                ],
+                linkerSettings: [.linkedFramework("Accelerate")])
     ]
 )

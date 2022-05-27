@@ -1,7 +1,10 @@
 import Foundation
-
+#if SWIFT_PACKAGE
+import webpbridge
+#endif
 #if os(macOS) || os(iOS)
 import CoreGraphics
+import Accelerate
 
 extension WebPDecoder {
     public func decode(_ webPData: Data, options: WebpDecoderOptions) throws -> CGImage {
@@ -9,7 +12,11 @@ extension WebPDecoder {
         let height: Int = Int(options.useScaling ? Int(Int32(options.scaledHeight)) : feature.height)
         let width: Int = Int(options.useScaling ? Int(Int32(options.scaledWidth)) : feature.width)
 
-        let decodedData: CFData = try decode(byRGBA: webPData, options: options) as CFData
+        let webpRGBAUnpremultiplied: Data = try decode(byRGBA: webPData, options: options) as Data
+        guard let decodedDataSwift = WebpRGBAMultiplier.premultiply(webpRGBAUnpremultiplied, width: width, height: height) else {
+            throw WebPError.unexpectedError(withMessage: "Couldn't create required RGBA")
+        }
+        let decodedData = decodedDataSwift as CFData
         guard let provider = CGDataProvider(data: decodedData) else {
             throw WebPError.unexpectedError(withMessage: "Couldn't initialize CGDataProvider")
         }

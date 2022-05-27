@@ -11,3 +11,4 @@
 #include "demux.h"
 #include "mux.h"
 #include "WebpIncrementalDecoder.hxx"
+#include "WebpRGBAMultiplier.hxx"
