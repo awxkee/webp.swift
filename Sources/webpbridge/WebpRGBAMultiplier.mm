@@ -37,13 +37,10 @@
     };
     auto vEerror = vImagePremultiplyData_RGBA8888(&src, &dest, kvImageNoFlags);
     if (vEerror != kvImageNoError) {
-        free(src.data);
         free(dest.data);
         CGColorSpaceRelease(colorSpace);
         return nullptr;
     }
-    
-    free(src.data);
     CGColorSpaceRelease(colorSpace);
     return reinterpret_cast<unsigned char*>(dest.data);
 }
@@ -65,13 +62,11 @@
     };
     auto vEerror = vImageUnpremultiplyData_RGBA8888(&src, &dest, kvImageNoFlags);
     if (vEerror != kvImageNoError) {
-        free(src.data);
         free(dest.data);
         CGColorSpaceRelease(colorSpace);
         return nullptr;
     }
-    
-    free(src.data);
+
     CGColorSpaceRelease(colorSpace);
     return reinterpret_cast<unsigned char*>(dest.data);
 }
