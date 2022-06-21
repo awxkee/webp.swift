@@ -9,14 +9,11 @@ let package = Package(
         .macOS(.v10_10), .iOS(.v13)
     ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "webp",
             targets: ["webp", "webpbridge"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/awxkee/libwebp-ios.git", branch: "master")
     ],
     targets: [
