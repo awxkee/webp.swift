@@ -31,7 +31,7 @@ public struct WebPDecoder {
     public func decode(byRGBA webPData: Data, options: WebpDecoderOptions) throws -> Data {
         var config = makeConfig(options, .RGBA)
         try decode(webPData, config: &config)
-
+        
         return Data(bytesNoCopy: config.output.u.RGBA.rgba,
                     count: config.output.u.RGBA.size,
                     deallocator: .free)

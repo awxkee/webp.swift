@@ -11,10 +11,10 @@
 
 #if TARGET_OS_OSX
 #import <AppKit/AppKit.h>
-#define WebPImage   NSImage
+#define WebPImage NSImage
 #else
 #import <UIKit/UIKit.h>
-#define WebPImage   UIImage
+#define WebPImage UIImage
 #endif
 
 @interface WebpIncrementalDecoderResult : NSObject

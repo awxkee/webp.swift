@@ -13,7 +13,7 @@ extension WebPEncoder {
             throw WebPError.unexpectedError(withMessage: "NSBitmapImageRep couldn't interpret given image.")
         }
 
-        let stride = Int(image.size.width) * MemoryLayout<UInt8>.size * 3 // RGB = 3byte
+        let stride = Int(image.size.width) * MemoryLayout<UInt8>.size * 3
         let webPData = try encode(RGB: bitmapData, config: config,
                                   originWidth: Int(image.size.width), originHeight: Int(image.size.height), stride: stride,
                                   resizeWidth: width, resizeHeight: height)
@@ -78,7 +78,7 @@ func convertUIImageToCGImageWithRGBA(_ image: WebPPlatformImage) throws -> CGIma
 
     context.draw(inputCGImage, in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
     guard let cgImage = context.makeImage() else {
-        throw WebPError.unexpectedError(withMessage: "Couldn't ")
+        throw WebPError.unexpectedError(withMessage: "Couldn't not make CGImage")
     }
 
     return cgImage
