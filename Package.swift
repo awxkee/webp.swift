@@ -19,10 +19,7 @@ let package = Package(
     targets: [
         .target(
             name: "webp",
-            dependencies: [.target(name: "webpbridge")],
-            swiftSettings: [
-                .unsafeFlags(["-suppress-warnings"]),
-            ]),
+            dependencies: [.target(name: "webpbridge")]),
         .target(name: "webpbridge",
                 dependencies: [.product(name: "libwebp", package: "libwebp-ios")],
                 path: "Sources/webpbridge",
