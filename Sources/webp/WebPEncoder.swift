@@ -125,7 +125,7 @@ public struct WebPEncoder {
         if WebPEncode(&config, &picture) == 0 {
             WebPPictureFree(&picture)
 
-            let error = WebPEncodeStatusCode(rawValue:  Int(picture.error_code.rawValue))!
+            let error = WebPEncodeStatusCode(rawValue: Int(picture.error_code.rawValue))!
             throw error
         }
         WebPPictureFree(&picture)

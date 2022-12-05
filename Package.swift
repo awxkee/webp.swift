@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "webp",
     platforms: [
-        .macOS(.v10_10), .iOS(.v13)
+        .macOS(.v10_10), .iOS(.v13), .macCatalyst(.v14)
     ],
     products: [
         .library(

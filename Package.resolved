@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/awxkee/libwebp-ios.git",
       "state" : {
-        "revision" : "7cccfba9ad7225106c48b87c931d39044205552e",
-        "version" : "1.0.0"
+        "revision" : "d59e70750f2a93c93867685ae0f7303d512c58db",
+        "version" : "1.0.2"
       }
     }
   ],
