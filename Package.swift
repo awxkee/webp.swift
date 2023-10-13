@@ -14,14 +14,14 @@ let package = Package(
             targets: ["webp", "webpbridge"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/awxkee/libwebp-ios.git", "1.0.0"..<"1.1.0")
+        .package(url: "https://github.com/awxkee/libwebp-ios.git", "1.1.0"..<"1.2.0")
     ],
     targets: [
         .target(
             name: "webp",
             dependencies: [.target(name: "webpbridge")]),
         .target(name: "webpbridge",
-                dependencies: [.product(name: "libwebp", package: "libwebp-ios")],
+                dependencies: [.product(name: "libwebp-ios", package: "libwebp-ios")],
                 path: "Sources/webpbridge",
                 publicHeadersPath: "include",
                 cSettings: [
