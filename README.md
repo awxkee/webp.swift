@@ -7,6 +7,7 @@ webp.swift the package to easy compress(decompress) WebP and *Animated* WebP ima
 ## How To Use
 
 ```swift
+import webp
 // Encode UIImage to WebP data
 let encoded: Data = try WebPEncoder().encode(image, config: .preset(.picture, quality: 81))
 // Decode Data to UIImage
