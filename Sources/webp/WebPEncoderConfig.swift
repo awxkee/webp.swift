@@ -137,7 +137,7 @@ public struct WebpEncoderConfig: InternalRawRepresentable {
         return WebpEncoderConfig(rawValue: webPConfig)!
     }
 
-    internal init?(rawValue: WebPConfig) {
+    public init?(rawValue: WebPConfig) {
         lossless = Int(rawValue.lossless)
         quality = rawValue.quality
         method = Int(rawValue.method)
@@ -169,7 +169,7 @@ public struct WebpEncoderConfig: InternalRawRepresentable {
         qmax = Int(rawValue.qmax)
     }
 
-    internal var rawValue: WebPConfig {
+    public var rawValue: WebPConfig {
         let show_compressed = showCompressed ? Int32(1) : Int32(0)
         let emulate_jpeg_size = emulateJpegSize ? Int32(1) : Int32(0)
         let low_memory = lowMemory ? Int32(1) : Int32(0)
