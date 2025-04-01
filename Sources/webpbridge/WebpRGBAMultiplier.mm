@@ -24,16 +24,16 @@
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     vImage_Buffer src = {
         .data = static_cast<void*>(data),
-        .width = width,
-        .height = height,
-        .rowBytes = width * 4
+        .width = static_cast<vImagePixelCount>(width),
+        .height = static_cast<vImagePixelCount>(height),
+        .rowBytes = static_cast<size_t>(width * 4)
     };
     
     vImage_Buffer dest = {
         .data = malloc(width * height * 4),
-        .width = width,
-        .height = height,
-        .rowBytes = width * 4
+        .width = static_cast<vImagePixelCount>(width),
+        .height = static_cast<vImagePixelCount>(height),
+        .rowBytes = static_cast<size_t>(width * 4)
     };
     auto vEerror = vImagePremultiplyData_RGBA8888(&src, &dest, kvImageNoFlags);
     if (vEerror != kvImageNoError) {
@@ -49,16 +49,16 @@
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     vImage_Buffer src = {
         .data = (void*)data,
-        .width = width,
-        .height = height,
-        .rowBytes = width * 4
+        .width = static_cast<vImagePixelCount>(width),
+        .height = static_cast<vImagePixelCount>(height),
+        .rowBytes = static_cast<size_t>(width * 4)
     };
     
     vImage_Buffer dest = {
         .data = malloc(width * height * 4),
-        .width = width,
-        .height = height,
-        .rowBytes = width * 4
+        .width = static_cast<vImagePixelCount>(width),
+        .height = static_cast<vImagePixelCount>(height),
+        .rowBytes = static_cast<size_t>(width * 4)
     };
     auto vEerror = vImageUnpremultiplyData_RGBA8888(&src, &dest, kvImageNoFlags);
     if (vEerror != kvImageNoError) {
